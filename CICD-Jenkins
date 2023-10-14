@@ -1,0 +1,25 @@
+- name: Install and configure Jenkins
+  hosts: jenkins_server
+  tasks:
+    - name: Install Java
+      apt:
+        name: openjdk-11-jdk
+        state: present
+
+    - name: Install Jenkins
+      apt:
+        name: jenkins
+        state: present
+
+    - name: Start Jenkins service
+      service:
+        name: jenkins
+        state: started
+
+    - name: Retrieve Jenkins admin password
+      command: cat /var/lib/jenkins/secrets/initialAdminPassword
+      register: jenkins_admin_password
+
+    - name: Display Jenkins admin password
+      debug:
+        var: jenkins_admin_password.stdout_lines
