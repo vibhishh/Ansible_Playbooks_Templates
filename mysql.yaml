@@ -1,0 +1,48 @@
+---
+- name: Install MySQL
+  hosts: mysql_servers  # Replace with the group of servers where you want to install MySQL
+  become: yes  # Run tasks with sudo privileges
+
+  tasks:
+    - name: Update APT package cache (for Ubuntu/Debian)
+      apt:
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Install MySQL server
+      apt:
+        name: mysql-server
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Update YUM package cache (for CentOS/RedHat)
+      yum:
+        name: "*"
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: Install MySQL server (for CentOS/RedHat)
+      yum:
+        name: mysql-server
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: Start the MySQL service
+      service:
+        name: mysql
+        state: started
+
+    - name: Enable MySQL service on system boot
+      service:
+        name: mysql
+        enabled: yes
+
+    - name: Secure MySQL installation (set root password)
+      mysql_user:
+        name: root
+        password: "{{ mysql_root_password }}"
+      when: ansible_os_family == "Debian"
+
+    - name: Secure MySQL installation (set root password)
+      command: mysqladmin -u root password "{{ mysql_root_password }}"
+      when: ansible_os_family == "RedHat"
