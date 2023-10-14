@@ -1,0 +1,6 @@
+---
+- name: Backup Configuration
+  hosts: your_target_host
+  tasks:
+    - name: Create backup of nginx config
+      command: cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
