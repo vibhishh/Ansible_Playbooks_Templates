@@ -1,0 +1,6 @@
+---
+- name: Ping Test
+  hosts: your_target_host
+  tasks:
+    - name: Ping the host
+      ping:
