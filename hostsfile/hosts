@@ -1,9 +1,9 @@
 
 [webservers]
 
-server_1 ansible_host=54.81.174.238
-server_2 ansible_host=52.73.231.220
-server_3 ansible_host=52.73.231.220
+server_1 ansible_host=<public_ip_address>
+server_2 ansible_host=<public_ip_address>
+server_3 ansible_host=<public_ip_address>
 
 [webservers:vars]
 ansible_python_interpreter=/usr/bin/python3
