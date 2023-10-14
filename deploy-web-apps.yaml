@@ -1,0 +1,13 @@
+---
+- name: Deploy Web App
+  hosts: web_servers
+  tasks:
+    - name: Copy web app files
+      copy:
+        src: /path/to/your/web/app
+        dest: /var/www/html/
+    
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
