@@ -1,0 +1,8 @@
+# file_transfer.yml
+---
+- hosts: app_servers
+  tasks:
+    - name: Copy configuration file
+      copy:
+        src: /local/path/config.yml
+        dest: /remote/path/config.yml
