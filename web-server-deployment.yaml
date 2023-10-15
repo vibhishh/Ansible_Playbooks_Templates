@@ -1,6 +1,6 @@
 - name: Install and configure Nginx
   hosts: web_servers
-  became: yes
+  become: yes
   tasks:
     - name: Install Nginx
       apt:
