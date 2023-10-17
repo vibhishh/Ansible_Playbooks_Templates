@@ -15,18 +15,6 @@
         state: present
       when: ansible_os_family == "Debian"
 
-    - name: Update YUM package cache (for CentOS/RedHat)
-      yum:
-        name: "*"
-        state: present
-      when: ansible_os_family == "RedHat"
-
-    - name: Install MySQL server (for CentOS/RedHat)
-      yum:
-        name: mysql-server
-        state: present
-      when: ansible_os_family == "RedHat"
-
     - name: Start the MySQL service
       service:
         name: mysql
@@ -39,10 +27,8 @@
 
     - name: Secure MySQL installation (set root password)
       mysql_user:
-        name: root
-        password: "{{ mysql_root_password }}"
+        name: admin
+        password: password
       when: ansible_os_family == "Debian"
 
-    - name: Secure MySQL installation (set root password)
-      command: mysqladmin -u root password "{{ mysql_root_password }}"
-      when: ansible_os_family == "RedHat"
+
